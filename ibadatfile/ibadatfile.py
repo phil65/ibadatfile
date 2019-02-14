@@ -4,6 +4,7 @@
 """
 
 import datetime
+import pywintypes
 
 import numpy as np
 import pandas as pd
@@ -27,7 +28,10 @@ class IbaDatFile(object):
         initialize the dat file object
         """
         self.path = path
-        self.reader = Dispatch("IbaFilesLite.IbaFile")
+        try:
+            self.reader = Dispatch("IbaFilesLite.IbaFile")
+        except pywintypes.com_error:
+            raise IOError("Necessary dlls are not installed.")
         self.reader.PreLoad = int(preload)
         self.reader.RawMode = int(raw_mode)
 
