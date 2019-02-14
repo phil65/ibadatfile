@@ -10,7 +10,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ibadatfile",
-    version="0.4.0",
+    version="0.5.0",
     author="Philipp Temminghoff",
     author_email="philipptemminghoff@gmail.com",
     description="Pythonic wrapper for IBA dat file DLL",
