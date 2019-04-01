@@ -1,21 +1,16 @@
 # -*- coding: utf-8 -*-
-"""
-@author: Philipp Temminghoff
-"""
 
 import datetime
-import pywintypes
 
 import numpy as np
 import pandas as pd
 import pythoncom
-from win32com.client import VARIANT
-from win32com.client.dynamic import Dispatch
-
+from win32com import client
+import pywintypes
 
 A = 0
 B = 0
-V = VARIANT(pythoncom.VT_BYREF | pythoncom.VT_VARIANT, 2)
+V = client.VARIANT(pythoncom.VT_BYREF | pythoncom.VT_VARIANT, 2)
 
 
 class IbaDatFile(object):
@@ -29,7 +24,7 @@ class IbaDatFile(object):
         """
         self.path = path
         try:
-            self.reader = Dispatch("IbaFilesLite.IbaFile")
+            self.reader = client.dynamic.Dispatch("IbaFilesLite.IbaFile")
         except pywintypes.com_error:
             raise IOError("Necessary dlls are not installed.")
         self.reader.PreLoad = int(preload)
@@ -78,8 +73,9 @@ class IbaDatFile(object):
         start = self.starttime()
         frames = self.frames()
         clk = self.clk()
-        return pd.DatetimeIndex([start + datetime.timedelta(seconds=i * clk) for i in range(frames)],
-                                name="time")
+        times = [start + datetime.timedelta(seconds=i * clk)
+                 for i in range(frames)]
+        return pd.DatetimeIndex(times, name="time")
 
     def frames(self):
         """
