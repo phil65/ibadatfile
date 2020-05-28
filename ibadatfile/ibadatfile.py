@@ -117,8 +117,8 @@ class IbaDatFile(object):
         """
         returns the recording start time as datetime object
         """
-        return pd.datetime.strptime(self.reader.QueryInfoByName("starttime"),
-                                    '%d.%m.%Y %H:%M:%S.%f')
+        return datetime.datetime.strptime(self.reader.QueryInfoByName("starttime"),
+                                          '%d.%m.%Y %H:%M:%S.%f')
 
     def starttime_as_str(self) -> str:
         """
