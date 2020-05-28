@@ -5,8 +5,8 @@ import datetime
 import numpy as np
 import pandas as pd
 import pythoncom
-from win32com import client
 import pywintypes
+from win32com import client
 
 A = 0
 B = 0
@@ -103,7 +103,7 @@ class IbaDatFile(object):
 
     def recorder_name(self) -> str:
         """
-        returns the software version of the recorder
+        returns the name of the recorder
         """
         return self.reader.QueryInfoByName("name")
 
