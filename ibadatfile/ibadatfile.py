@@ -18,7 +18,7 @@ class IbaDatFile(object):
     Class representing an Iba .dat file
     """
 
-    def __init__(self, path=None, raw_mode=False, preload=True):
+    def __init__(self, path=None, raw_mode: bool = False, preload: bool = True):
         """
         initialize the dat file object
         """
@@ -66,7 +66,7 @@ class IbaDatFile(object):
         """
         self.reader.Close()
 
-    def index(self):
+    def index(self) -> pd.DatetimeIndex:
         """
         returns the time index for the channels
         """
@@ -77,19 +77,19 @@ class IbaDatFile(object):
                  for i in range(frames)]
         return pd.DatetimeIndex(times, name="time")
 
-    def frames(self):
+    def frames(self) -> int:
         """
         returns amount of frames of channels
         """
         return int(self.reader.QueryInfoByName("frames"))
 
-    def signal_count(self):
+    def signal_count(self) -> int:
         """
         returns amount of channels
         """
         return int(self.reader.QueryInfoByName("totalSignalCount"))
 
-    def clk(self):
+    def clk(self) -> float:
         """
         returns the clock rate
         """
@@ -101,35 +101,35 @@ class IbaDatFile(object):
         """
         return self.reader.QueryInfoByName("version")
 
-    def recorder_name(self):
+    def recorder_name(self) -> str:
         """
         returns the software version of the recorder
         """
         return self.reader.QueryInfoByName("name")
 
-    def recorder_type(self):
+    def recorder_type(self) -> str:
         """
         returns the software version of the recorder
         """
         return self.reader.QueryInfoByName("type")
 
-    def starttime(self):
+    def starttime(self) -> str:
         """
         returns the recording start time as datetime object
         """
         return pd.datetime.strptime(self.reader.QueryInfoByName("starttime"),
                                     '%d.%m.%Y %H:%M:%S.%f')
 
-    def starttime_as_str(self):
+    def starttime_as_str(self) -> str:
         """
         returns the recording start time as datetime object
         """
         return self.reader.QueryInfoByName("starttime")
 
-    def return_channel_names(self):
+    def return_channel_names(self) -> list:
         return [channel.name() for channel in self]
 
-    def data(self):
+    def data(self) -> pd.DataFrame:
         """
         returns data as a dataframe
         """
@@ -150,7 +150,7 @@ class IbaChannel(object):
         """
         self.channel = channel
 
-    def name(self):
+    def name(self) -> str:
         """
         returns the channel name
         """
@@ -168,13 +168,13 @@ class IbaChannel(object):
         """
         return self.channel.QueryInfoByName("maxscale")
 
-    def xoffset(self):
+    def xoffset(self) -> int:
         """
         returns the channel x offset (in frames?)
         """
         return self.channel.QueryInfoByName("xoffset")
 
-    def unit(self):
+    def unit(self) -> str:
         """
         returns unit of the channel data
         """
@@ -186,7 +186,7 @@ class IbaChannel(object):
         """
         return self.channel.QueryInfoByName("digchannel")
 
-    def pda_type(self):
+    def pda_type(self) -> str:
         """
         returns the channel unit
         """
@@ -207,19 +207,19 @@ class IbaChannel(object):
         else:
             return data
 
-    def is_bool(self):
+    def is_bool(self) -> bool:
         """
         returns true if series contains boolean values
         """
         return self.channel.IsDigital()
 
-    def is_time_based(self):
+    def is_time_based(self) -> bool:
         """
         returns bool whether series is time based
         """
         return self.channel.IsDefaultTimebased()
 
-    def id(self):
+    def id(self) -> int:
         """
         returns the channel id
         """
