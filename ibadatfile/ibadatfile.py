@@ -75,6 +75,9 @@ class IbaChannel:
         else:
             return data
 
+    def series(self) -> pd.Series:
+        return pd.Series(self.data(), name=self.name())
+
     def is_bool(self) -> bool:
         """Return true if series contains boolean values."""
         return self.channel.IsDigital()
