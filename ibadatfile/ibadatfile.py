@@ -124,6 +124,12 @@ class IbaDatFile:
             channel = enumerator.Next()
             yield IbaChannel(channel)
 
+    def __getitem__(self, index: str) -> IbaChannel:
+        for channel in self:
+            if channel.name() == index:
+                return channel
+        raise IndexError(index)
+
     def open(self, path: os.PathLike):
         """Open .dat file from *path."""
         self.path = os.fspath(path)
