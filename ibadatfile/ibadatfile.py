@@ -154,7 +154,7 @@ class IbaDatFile:
         """Return the clock rate."""
         return float(self.reader.QueryInfoByName("clk"))
 
-    def recorder_version(self):
+    def recorder_version(self) -> str:
         """Return the software version of the recorder."""
         return self.reader.QueryInfoByName("version")
 
