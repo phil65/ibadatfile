@@ -19,38 +19,38 @@ define PRINT_HELP_PYSCRIPT
 import re, sys
 
 for line in sys.stdin:
-    match = re.match(r'^([a-zA-Z_-]+):.*?## (.*)$$', line)
-    if match:
-        target, help = match.groups()
-        print("%-20s %s" % (target, help))
+	match = re.match(r'^([a-zA-Z_-]+):.*?## (.*)$$', line)
+	if match:
+		target, help = match.groups()
+		print("%-20s %s" % (target, help))
 endef
 export PRINT_HELP_PYSCRIPT
 
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
 
 help:
-    @python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 clean: ## remove all build, test, coverage and Python artifacts
-    git clean -dfX
+	git clean -dfX
 
 test: ## run tests with all frameworks
-    poetry run pytest # --mypy
+	poetry run pytest # --mypy
 
 mypy: ## run mypy type checking
-    poetry run mypy ibadatfile
+	poetry run mypy ibadatfile
 
 docs: ## builds the documentation
-    poetry run mkdocs build
+	poetry run mkdocs build
 
 serve: ## run html server watching file changes in realtime
-    $(BROWSER) site/index.html
-    poetry run mkdocs serve
+	$(BROWSER) site/index.html
+	poetry run mkdocs serve
 
 changelog: ## create changelog
-    python -c "$$BUMP_SCRIPT"
-    mv CHANGELOG.md docs/changelog.md
+	python -c "$$BUMP_SCRIPT"
+	mv CHANGELOG.md docs/changelog.md
 
 bump: ## version bump
-    poetry run cz bump --no-verify
+	poetry run cz bump --no-verify
 #   cp CHANGELOG.md docs/changelog.md
