@@ -12,7 +12,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = ">=3.10"
-pywin32 = "*"
+pywin32 = { version = "*", markers = "platform_system == 'Windows'"}
 pandas = "^1.5"
 
 [tool.poetry.dev-dependencies]
