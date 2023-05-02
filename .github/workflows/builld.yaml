@@ -1,0 +1,76 @@
+name: Python package
+
+on: [push]
+
+jobs:
+  build:
+
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest, macos-10.15, windows-latest]
+        python-version: ["3.10", "3.11"]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip
+        pip install poetry --pre
+        poetry install
+    - name: Test with pytest
+      run: |
+        poetry run pytest --doctest-modules --junitxml=junit/test-results.xml --cov=ibadatfile --cov-report=xml --cov-report=html
+    - name: Create documentation
+      if: matrix.python-version == '3.10' && runner.os == 'Linux'
+      run: |
+        poetry run mkdocs build
+    # - name: Build and publish
+    #   if: startsWith(github.ref, 'refs/tags/v') && matrix.python-version == '3.10' && runner.os == 'Linux'
+    #   run: |
+    #     poetry config pypi-token.pypi ${{ secrets.PYPI_SECRET }}
+    #     poetry publish --build
+    - name: Deploy docs
+      if: startsWith(github.ref, 'refs/tags/v') && matrix.python-version == '3.10' && runner.os == 'Linux'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Build and publish
+      uses: d1618033/gh-action-python-publish-using-poetry@master
+      with:
+        pypi_username: __token__
+        pypi_password: ${{ secrets.PYPI_SECRET }}
+    # - name: Deploy docs
+    #   # if: github.event_name == 'push'
+    #   uses: mhausenblas/mkdocs-deploy-gh-pages@master
+    #   # Or use mhausenblas/mkdocs-deploy-gh-pages@nomaterial to build without the mkdocs-material theme
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     # CUSTOM_DOMAIN: optionaldomain.com
+    - name: Install packages
+      # if: runner.os == 'Linux'
+      run: |
+        pip install poetry
+        poetry install
+        poetry run mkdocs build
+    - name: Deploy docs
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site
