@@ -3,7 +3,7 @@ IbaDatFile is a Pythonic wrapper for interacting with iba dat files through the 
 
 ## Requirements
 - Windows-only: This package is designed to work on Windows systems.
-- 32-bit Python: The Iba ```IbaFiles.dll``` is a 32-bit COM object. Therefore, a 32-bit version of Python is required to ensure compatibility.
+- In Python, the ```IbaFilesLite.dll``` COM object can be either 32-bit or 64-bit. To ensure compatibility, you must verify that the architecture of ```IbaFilesLite.dll``` matches your Python installation. For instance, if you're using a 32-bit ```IbaFilesLite.dll```, you need to run a 32-bit version of Python.
 - Iba ```ibaFilesLite.dll```: You must have the Iba ```ibaFilesLite.dll``` installed and registered on your system.
 
 ## Getting Started
