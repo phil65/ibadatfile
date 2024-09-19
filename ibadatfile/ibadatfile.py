@@ -62,6 +62,11 @@ class IbaChannel:
         """Return the channel unit."""
         return self.channel.QueryInfoByName("$PDA_Typ")
 
+    
+    def tbased(self):
+        """Return the channel sampling rate for each channel."""
+        return float(self.channel.QueryInfoByName("$PDA_Tbase"))
+
     def data(self) -> np.array:
         """Return the channel data."""
         if self.channel.IsDefaultTimebased():
