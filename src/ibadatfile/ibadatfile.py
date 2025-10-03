@@ -1,14 +1,21 @@
 from __future__ import annotations
 
-import os
-from typing import Generator
 import datetime
+import os
+from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
 import pythoncom
 import pywintypes
 from win32com import client
+
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
+
+    from numpy.typing import NDArray
+
 
 A = 0
 B = 0
@@ -25,9 +32,7 @@ def read_ibadat(
 
 
 class IbaChannel:
-    """
-    Class representing a single channel of an iba .dat file
-    """
+    """Class representing a single channel of an iba .dat file."""
 
     def __init__(self, channel):
         """Initialize the channel object."""
@@ -65,7 +70,7 @@ class IbaChannel:
         """Return the channel sampling rate for each channel."""
         return float(self.channel.QueryInfoByName("$PDA_Tbase"))
 
-    def data(self) -> np.array:
+    def data(self) -> NDArray:
         """Return the channel data."""
         if self.channel.IsDefaultTimebased():
             data = np.array(self.channel.QueryTimebasedData(A, B, V)[2])
@@ -73,10 +78,9 @@ class IbaChannel:
             data = np.array(self.channel.QueryLengthbasedData(A, B, V)[2])
         if self.is_bool():
             return data.astype(bool)
-        elif self.pda_type() == "int16":
+        if self.pda_type() == "int16":
             return data.astype("int16")
-        else:
-            return data
+        return data
 
     def series(self) -> pd.Series:
         return pd.Series(self.data(), name=self.name())
@@ -95,9 +99,7 @@ class IbaChannel:
 
 
 class IbaDatFile:
-    """
-    Class representing an Iba .dat file
-    """
+    """Class representing an Iba .dat file."""
 
     def __init__(
         self,
@@ -110,7 +112,8 @@ class IbaDatFile:
         try:
             self.reader = client.dynamic.Dispatch("IbaFilesLite.IbaFile")
         except pywintypes.com_error as e:
-            raise IOError("Necessary dlls are not installed.") from e
+            msg = "Necessary dlls are not installed."
+            raise OSError(msg) from e
         self.reader.PreLoad = int(preload)
         self.reader.RawMode = int(raw_mode)
 

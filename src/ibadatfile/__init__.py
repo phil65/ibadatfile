@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from .ibadatfile import IbaChannel, IbaDatFile, read_ibadat
 
 __all__ = ["IbaChannel", "IbaDatFile", "read_ibadat"]
