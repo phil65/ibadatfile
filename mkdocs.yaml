@@ -1,18 +1,17 @@
 site_name: IbaDatFile
 site_url: https://phil65.github.io/ibadatfile/
 nav:
-    - Home: index.md
-    - API:
-        - ibadatfile: api/ibadatfile.md
-    - Contributing: contributing.md
-    - Changelog: changelog.md
+  - Home: index.md
+  - API:
+      - ibadatfile: api/ibadatfile.md
+  - Contributing: contributing.md
+  - Changelog: changelog.md
 
 theme:
-    name: material
-    custom_dir: docs/theme_customizations/
-    palette:
-
-        # Palette toggle for light mode
+  name: material
+  custom_dir: docs/theme_customizations/
+  palette:
+    # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
       toggle:
@@ -25,39 +24,38 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
-    features:
+  features:
     - content.code.copy
     - content.code.select
     - content.code.annotate
 plugins:
-    - search
-    - mkdocstrings:
-        default_handler: python
-        handlers:
-          python:
-            options:
-              # https://mkdocstrings.github.io/python/usage/
-              show_source: true
-              show_signature_annotations: true
-              show_if_no_docstring: true
-              inherited_members: false
-    # - mkapi
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            # https://mkdocstrings.github.io/python/usage/
+            show_source: true
+            show_signature_annotations: true
+            show_if_no_docstring: true
+            inherited_members: false
+  # - mkapi
 markdown_extensions:
-    # - smarty
-    - codehilite
-    - admonition
-    - pymdownx.highlight:
-        anchor_linenums: true
-        line_spans: __span
-        pygments_lang_class: true
-    - pymdownx.inlinehilite
-    - pymdownx.snippets
-    - pymdownx.superfences
-    # - pymdownx.betterem
-    # - markdown.extensions.footnotes
-    # - markdown.extensions.attr_list
-    # - markdown.extensions.def_list
-    # - markdown.extensions.tables
-    # - markdown.extensions.abbr
-    # - markdown.extensions.md_in_html
-use_directory_urls: false
+  # - smarty
+  - codehilite
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  # - pymdownx.betterem
+  # - markdown.extensions.footnotes
+  # - markdown.extensions.attr_list
+  # - markdown.extensions.def_list
+  # - markdown.extensions.tables
+  # - markdown.extensions.abbr
+  # - markdown.extensions.md_in_html
