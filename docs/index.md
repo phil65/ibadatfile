@@ -1,8 +1,8 @@
 # ibadatfile: Pythonic wrapper for IbaDatFiles
 [![PyPI Latest Release](https://img.shields.io/pypi/v/ibadatfile.svg)](https://pypi.org/project/ibadatfile/)
 [![Package Status](https://img.shields.io/pypi/status/ibadatfile.svg)](https://pypi.org/project/ibadatfile/)
-[![License](https://img.shields.io/pypi/l/ibadatfile.svg)](https://github.com/phil65/ibadatfile/blob/master/LICENSE)
-[![CodeCov](https://codecov.io/gh/phil65/ibadatfile/branch/master/graph/badge.svg)](https://codecov.io/gh/phil65/ibadatfile)
+[![License](https://img.shields.io/pypi/l/ibadatfile.svg)](https://github.com/phil65/ibadatfile/blob/main/LICENSE)
+[![CodeCov](https://codecov.io/gh/phil65/ibadatfile/branch/main/graph/badge.svg)](https://codecov.io/gh/phil65/ibadatfile)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![PyUp](https://pyup.io/repos/github/phil65/ibadatfile/shield.svg)](https://pyup.io/repos/github/phil65/ibadatfile/)
 
