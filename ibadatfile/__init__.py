@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from .ibadatfile import IbaChannel, IbaDatFile, read_ibadat
 
-from .ibadatfile import *
+__all__ = ["IbaChannel", "IbaDatFile", "read_ibadat"]
 
 name = "ibadatfile"
 __version__ = "1.0.0"

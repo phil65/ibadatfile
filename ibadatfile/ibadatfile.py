@@ -3,7 +3,6 @@ from __future__ import annotations
 import os
 from typing import Generator
 import datetime
-import pathlib
 
 import numpy as np
 import pandas as pd
@@ -62,7 +61,6 @@ class IbaChannel:
         """Return the channel unit."""
         return self.channel.QueryInfoByName("$PDA_Typ")
 
-    
     def tbased(self):
         """Return the channel sampling rate for each channel."""
         return float(self.channel.QueryInfoByName("$PDA_Tbase"))
