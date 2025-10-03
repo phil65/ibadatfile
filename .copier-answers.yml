@@ -1,0 +1,21 @@
+# Changes here will be overwritten by Copier
+_commit: v1.9.0
+_src_path: https://github.com/phil65/copier-phil65.git
+author_email: philipptemminghoff@googlemail.com
+author_fullname: Philipp Temminghoff
+author_username: phil65
+copyright_date: '2025'
+copyright_holder: Philipp Temminghoff
+copyright_holder_email: philipptemminghoff@googlemail.com
+libraries_use_pydantic: false
+libraries_use_qt: false
+project_description: Pythonic wrapper for IBA dat file DLL
+project_name: IbaDatFile
+python_minimum_version: '3.12'
+python_package_command_line_name: ibadatfile
+python_package_distribution_name: ibadatfile
+python_package_import_name: ibadatfile
+repository_name: ibadatfile
+repository_namespace: phil65
+repository_provider: github.com
+

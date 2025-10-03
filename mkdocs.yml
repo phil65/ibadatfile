@@ -1,0 +1,92 @@
+site_name: "IbaDatFile"
+site_description: "Pythonic wrapper for IBA dat file DLL"
+repo_url: "https://github.com/phil65/ibadatfile/"
+site_url: https://phil65.github.io/ibadatfile/
+site_author: "Philipp Temminghoff"
+copyright: Copyright &copy; 2025 Philipp Temminghoff
+
+theme:
+  name: material
+  custom_dir: overrides
+  icon:
+    logo: material/graph-outline
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: red
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: red
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
+    - content.tooltips
+    # - content.tabs.link
+    - navigation.tracking # update URL based on current item in TOC
+    - navigation.path # shows breadcrumbs
+    - navigation.tabs # make top level tabs
+    - navigation.indexes # documents can be directly attached to sections (overview pages)
+    - navigation.footer # next/previous page buttons in footer
+    - navigation.top # adds back-to-top button
+    # - navigation.sections # top-level sections are rendered as groups
+    # - navigation.expand # expand all subsections in left sidebar by default
+    - toc.follow # makes toc follow scrolling
+    # - toc.integrate  # integrates toc into left menu
+    - search.highlight
+    - search.suggest
+  # - search.share
+
+plugins:
+  - search
+  - autorefs
+  - mknodes
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          import:
+            - url: https://docs.python.org/3/objects.inv
+              domains: [std, py]
+          options:
+            # https://mkdocstrings.github.io/python/usage/
+            enable_inventory: !ENV [CI, false]
+            show_signature_annotations: true
+            show_symbol_type_toc: true
+            show_symbol_type_heading: true
+            show_root_toc_entry: false
+            # merge_init_into_class: true
+            ignore_init_summary: true
+            inherited_members: false
+            signature_crossrefs: true
+            separate_signature: true
+            line_length: 90
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji
+  - toc:
+      permalink: true
+
+extra:
+  social:
+  - icon: fontawesome/brands/github
+    link: https://github.com/phil65
+  - icon: fontawesome/brands/python
+    link: https://pypi.org/project/ibadatfile/

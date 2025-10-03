@@ -1,4 +1,32 @@
 # IbaDatFile
+
+[![PyPI License](https://img.shields.io/pypi/l/ibadatfile.svg)](https://pypi.org/project/ibadatfile/)
+[![Package status](https://img.shields.io/pypi/status/ibadatfile.svg)](https://pypi.org/project/ibadatfile/)
+[![Monthly downloads](https://img.shields.io/pypi/dm/ibadatfile.svg)](https://pypi.org/project/ibadatfile/)
+[![Distribution format](https://img.shields.io/pypi/format/ibadatfile.svg)](https://pypi.org/project/ibadatfile/)
+[![Wheel availability](https://img.shields.io/pypi/wheel/ibadatfile.svg)](https://pypi.org/project/ibadatfile/)
+[![Python version](https://img.shields.io/pypi/pyversions/ibadatfile.svg)](https://pypi.org/project/ibadatfile/)
+[![Implementation](https://img.shields.io/pypi/implementation/ibadatfile.svg)](https://pypi.org/project/ibadatfile/)
+[![Releases](https://img.shields.io/github/downloads/phil65/ibadatfile/total.svg)](https://github.com/phil65/ibadatfile/releases)
+[![Github Contributors](https://img.shields.io/github/contributors/phil65/ibadatfile)](https://github.com/phil65/ibadatfile/graphs/contributors)
+[![Github Discussions](https://img.shields.io/github/discussions/phil65/ibadatfile)](https://github.com/phil65/ibadatfile/discussions)
+[![Github Forks](https://img.shields.io/github/forks/phil65/ibadatfile)](https://github.com/phil65/ibadatfile/forks)
+[![Github Issues](https://img.shields.io/github/issues/phil65/ibadatfile)](https://github.com/phil65/ibadatfile/issues)
+[![Github Issues](https://img.shields.io/github/issues-pr/phil65/ibadatfile)](https://github.com/phil65/ibadatfile/pulls)
+[![Github Watchers](https://img.shields.io/github/watchers/phil65/ibadatfile)](https://github.com/phil65/ibadatfile/watchers)
+[![Github Stars](https://img.shields.io/github/stars/phil65/ibadatfile)](https://github.com/phil65/ibadatfile/stars)
+[![Github Repository size](https://img.shields.io/github/repo-size/phil65/ibadatfile)](https://github.com/phil65/ibadatfile)
+[![Github last commit](https://img.shields.io/github/last-commit/phil65/ibadatfile)](https://github.com/phil65/ibadatfile/commits)
+[![Github release date](https://img.shields.io/github/release-date/phil65/ibadatfile)](https://github.com/phil65/ibadatfile/releases)
+[![Github language count](https://img.shields.io/github/languages/count/phil65/ibadatfile)](https://github.com/phil65/ibadatfile)
+[![Github commits this month](https://img.shields.io/github/commit-activity/m/phil65/ibadatfile)](https://github.com/phil65/ibadatfile)
+[![Package status](https://codecov.io/gh/phil65/ibadatfile/branch/main/graph/badge.svg)](https://codecov.io/gh/phil65/ibadatfile/)
+[![PyUp](https://pyup.io/repos/github/phil65/ibadatfile/shield.svg)](https://pyup.io/repos/github/phil65/ibadatfile/)
+
+[Read the documentation!](https://phil65.github.io/ibadatfile/)
+
+
+# IbaDatFile
 IbaDatFile is a Pythonic wrapper for interacting with iba dat files through the Iba ```ibaFilesLite.dll```. This package simplifies access to the Iba dat file format, making it easier to work with the data in Python.
 
 ## Requirements

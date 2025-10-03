@@ -45,7 +45,7 @@ def lint(ctx):
     """Lint the code and fix issues if possible."""
     ctx.run("uv run ruff check --fix --unsafe-fixes .")
     ctx.run("uv run ruff format .")
-    ctx.run("uv run mypy src/")
+    ctx.run("uv run mypy src/ibadatfile/")
 
 
 @duty(capture=False)
@@ -53,7 +53,7 @@ def lint_check(ctx):
     """Lint the code."""
     ctx.run("uv run ruff check .")
     ctx.run("uv run ruff format --check .")
-    ctx.run("uv run mypy src/llmling_agent/")
+    ctx.run("uv run mypy src/ibadatfile/")
 
 
 @duty(capture=False)

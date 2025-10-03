@@ -1,0 +1,88 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.python_version == '3.14' }}
+    strategy:
+      matrix:
+        python_version: ["3.13", "3.14"]
+        os: ["ubuntu-latest", "macos-latest", "windows-latest"]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python_version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python_version }}
+          allow-prereleases: true
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: pyproject.toml
+          cache-suffix: py${{ matrix.python_version }}
+
+      - name: Install dependencies (uv sync)
+        run: uv sync --all-extras --no-group docs
+
+      - name: Check for code issues (ruff check)
+        uses: astral-sh/ruff-action@v3
+
+      - name: Check code format (ruff format)
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: "format --check"
+
+      - name: Static type checking (MyPy)
+        run: uv run --no-group docs mypy src/ibadatfile/
+
+      - name: Run tests
+        run: uv run --no-group docs pytest --cov-report=xml --cov=src/ibadatfile/ --cov-report=term-missing
+
+      - name: Upload test results to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          fail_ci_if_error: false
+          verbose: true
+
+  release:
+    runs-on: ubuntu-latest
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      # this permission is mandatory for trusted publishing
+      id-token: write
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: pyproject.toml
+          cache-suffix: py${{ matrix.python_version }}
+
+      - name: Build package
+        run: uv build
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+
+      - name: Release package on GitHub
+        uses: ncipollo/release-action@v1
+        with:
+          body: ${{ github.event.head_commit.message }}
+          artifacts: dist/*.whl,dist/*.tar.gz
+          token: ${{ secrets.GITHUB_TOKEN }}
