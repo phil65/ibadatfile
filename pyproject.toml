@@ -1,87 +1,263 @@
 [project]
-name = "IbaDatFile"
-version = "1.0.0"
+name = "ibadatfile"
 description = "Pythonic wrapper for IBA dat file DLL"
-readme = "docs/index.md"
-requires-python = ">=3.10"
-authors = [{ name = "phil65", email = "philipptemminghoff@googlemail.com" }]
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Philipp Temminghoff", email = "philipptemminghoff@googlemail.com" },
+]
+keywords = []
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Documentation",
+  "Topic :: Software Development",
+  "Topic :: Utilities",
+  "Typing :: Typed",
+]
 dependencies = [
   "pandas",
   "pywin32; platform_system == 'Windows'",
 ]
+dynamic = ["version"]
 
 [project.urls]
-Homepage = "https://github.com/phil65/ibadatfile"
-Repository = "https://github.com/phil65/ibadatfile"
+"Code coverage" = "https://app.codecov.io/gh/phil65/ibadatfile"
+Discussions = "https://github.com/phil65/ibadatfile/discussions"
+Documentation = "https://phil65.github.io/ibadatfile/"
+Issues = "https://github.com/phil65/ibadatfile/issues"
+Source = "https://github.com/phil65/ibadatfile"
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
-  "pytest>=7",
-  "pip>=23.0",
-  "flake8>=6",
-  "pytest-cov>=4",
-  "mypy>=1",
-  "pylint>=2.5.3",
-  "coverage>=7",
-  "mkdocs>=1.1.2",
-  "mkdocs-material>=9",
-  "mkdocstrings[python]>=0",
-  "pymdown-extensions>=9",
+  "devtools",
+  "pyreadline3",
+  "pytest",
+  "pytest-cov",
+  # Only add below (Copier)
+]
+benchmark = ["pyinstrument"]
+docs = [
+  "mkdocs-material",
+  "mkdocs-mknodes",
+  # Only add below (Copier)
+]
+lint = [
+  "mypy; python_version >= '3.14'",
+  "mypy[faster-cache]; python_version < '3.14'",
   "ruff",
+  # Only add below (Copier)
 ]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatch-regex-commit", "hatchling"]
 build-backend = "hatchling.build"
 
-[tool.black]
-line-length = 90
-target-version = ["py37"]
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-  | tests/.*/setup.py
-)/
-'''
-
-[tool.commitizen]
-name = "cz_conventional_commits"
-version = "0.9.0"
-tag_format = "v$version"
-update_changelog_on_bump = true
-changelog_file = "docs/changelog.md"
-version_files = [
-  "ibadatfile/__init__.py:__version__",
-  "setup.py:version",
-  "pyproject.toml:version",
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "if TYPE_CHECKING:",
+  "@overload",
+  "except ImportError",
+  'if __name__ == "__main__":',
 ]
 
-[tool.hatch.build.targets.wheel]
-packages = ["ibadatfile"]
+[tool.hatch.version]
+source = "regex_commit"
+commit_extra_args = ["-e"]
+path = "src/ibadatfile/__init__.py"
 
-[tool.isort]
-line_length = 90
-include_trailing_comma = true
-lines_after_imports = 2
-lines_between_types = 1
-multi_line_output = 3
-force_sort_within_sections = true
-combine_as_imports = true
-force_grid_wrap = 0
-skip_glob = ["*/setup.py", "*/__init__.py"]
+[tool.mknodes]
+allowed-commit-types = [
+  "fix",
+  "feat",
+  "refactor",
+  "docs",
+  "test",
+  "build",
+  "chore",
+]
+docstring-style = "google"
+
+[tool.mypy]
+python_version = "3.12"
+disable_error_code = ["misc", "import"]
+pretty = true
+check_untyped_defs = true
+exclude = ["venv/", ".venv/", "tests/"]
+plugins = []
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+pythonVersion = "3.12"
+pythonPlatform = "All"
+typeCheckingMode = "basic"
+deprecateTypingAliases = true
+reportMissingTypeStubs = false
+reportUnusedCallResult = false
+reportUnknownVariableType = false
+reportAny = false
+reportImplicitOverride = false
+reportUnusedFunction = false
+reportImplicitStringConcatenation = false
+reportIgnoreCommentWithoutRule = false
+reportUnannotatedClassAttribute = false
+reportSelfClsParameterName = false
+reportPrivateImportUsage = false
 
 [tool.pytest.ini_options]
-junit_family = "xunit2"
-minversion = "6.0"
-testpaths = [
-  "tests",
+log_cli = true
+log_date_format = "%Y-%m-%d %H:%M:%S"
+log_format = "%(asctime)s %(levelname)s %(message)s"
+testpaths = "tests/"
+
+[tool.ruff]
+line-length = 90
+extend-exclude = ["docs"]
+target-version = "py312"
+
+[tool.ruff.lint]
+future-annotations = true
+select = [
+  "A",  # Flake8-builtins
+  # "ANN",  # Flake8-Annotations
+  # "ASYNC",  # Flake8-Async
+  # "ARG",  # # Flake8-Unused-Arguments
+  "B",  # flake8-bugbear
+  "BLE",  # Flake8-blind-except
+  "C",
+  "C4",  # flake8-comprehensions
+  # "C90",  # MCCabe
+  "COM",  # Flake8-commas
+  # "CPY",  #  Copyright-related rules
+  "D",  # PyDocStyle
+  # "DTZ",  # Flake8- Datetimez
+  "E",  # PyCodeStyle Error
+  "EM",  # flake8-errmsg
+  # "ERA",  #  Eradicate
+  "EXE",  # flake8-executable
+  "F",  # PyFlakes
+  "FA",  # flake8-future-annotations
+  # "FBT",  # flake8-boolean-trap
+  # "FIX",  # flake8-fixme
+  "FLY",  # flynt
+  "G",  # flake8-logging-format
+  "I",  # ISort
+  "ICN",  # Flake8-import-conventions
+  "INP",  # flake8-no-pep420
+  "INT",  # flake8-gettext
+  "ISC",  # flake8-implicit-str-concat
+  "N",  # pep8-naming
+  # "NPY",  # numpy-specific rules
+  # "PD",   # pandas-vet
+  "PERF",  # perflint
+  # "PGH",  # pygrep-hooks
+  "PIE",  # flake8-pie
+  "PLE",  # PyLint Error
+  "PLC",  # PyLint convention
+  # "PLW",  # PyLint Warning
+  "PLR",  # PyLint refactor
+  "PT",  # flake8-pytest-style
+  "PTH",  # flake8-use-pathlib
+  "PYI",  # flake8-pyi
+  "Q",  # flake8-quotes
+  "RET",  # flake8-return
+  "RSE",  # flake8-raise
+  "RUF",  # ruff-specific rules
+  # "S",    # flake8-bandit
+  "SIM",  # flake8-simplify
+  "SLF",  # flake8-self
+  "SLOT",  # flake8-slots
+  # "T",
+  # "TD",   # flake8-todos
+  "T10",  # flake8-debugger
+  # "T20",  # flake8-print
+  "TC",  # flake8-type-checking
+  "TID",  # flake8-tidy-imports
+  "TRY",  # tryceratops
+  "UP",  # PyUpgrade
+  "W",  # PyCodeStyle warning
+  "YTT",  # flake8-2020
 ]
+ignore = [
+  "C408",  # Unnecessary {obj_type} call (rewrite as a literal)
+  "B905",  # zip() without an explicit strict= parameter
+  "C901",  # {name} is too complex ({complexity} > {max_complexity})
+  "COM812",
+  # "CPY001", # Missing copyright notice at top of file
+  "D100",  # Missing docstring in public module
+  "D101",  # Missing docstring in public class
+  "D102",  # Missing docstring in public method
+  "D103",  # Missing docstring in public function
+  "D104",  # Missing docstring in public package
+  "D105",  # Missing docstring in magic method
+  "D106",  # Missing docstring in public nested class
+  "D107",  # Missing docstring in __init__
+  "D203",  # 1 blank line required before class docstring
+  "D204",  # 1 blank line required after class docstring
+  "D213",  # Multi-line docstring summary should start at the second line
+  "D215",  # Section underline is over-indented ("{name}")
+  "D400",  # First line should end with a period
+  "D401",  # First line of docstring should be in imperative mood: "{first_line}"
+  "D404",  # First word of the docstring should not be "This"
+  "D406",  # Section name should end with a newline ("{name}")
+  "D407",  # Missing dashed underline after section ("{name}")
+  "D408",  # Section underline should be in the line following the section's name ("{name}")
+  "D409",  # Section underline should match the length of its name ("{name}")
+  "D413",  # Missing blank line after last section ("{name}")
+  "ISC001",
+  "PLC0415",
+  "PLR0912",  # Too many branches
+  "PLR0913",  # Too many arguments to function call
+  "PLR0915",  # Too many statements
+  # "PLR2004", # Magic values instead of named consts
+  "SLF001",  # Private member accessed
+  "TRY003",  # Avoid specifying long messages outside the exception class
+  "TC006",  # runtime-cast-value
+]
+
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"
+
+[tool.ruff.lint.flake8-type-checking]
+runtime-evaluated-base-classes = [
+  "pydantic.BaseModel",
+  "sqlalchemy.orm.DeclarativeBase",
+  "schemez.Schema",
+]
+runtime-evaluated-decorators = [
+  "pydantic.validate_call",
+  "attrs.define",
+  "fastapi.FastAPI.get",
+  "fastapi.FastAPI.post",
+  "fastmcp.FastMCP.tool",
+]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+# lines-between-types = 1
+# atomic = true
+force-sort-within-sections = true
+combine-as-imports = true
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402", "I001"]
+"scripts/*" = ["INP001"]
+
+[tool.ruff.format]
+# Enable preview style formatting.
+preview = true
+
+[tool.ty.environment]
+python-version = "3.12"
+
+[tool.uv]
+default-groups = ["dev", "lint", "docs"]
