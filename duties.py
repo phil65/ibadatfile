@@ -23,7 +23,6 @@ def serve(ctx, *args: str):
 def test(ctx, *args: str):
     """Serve a MkNodes page."""
     args_str = " " + " ".join(args) if args else ""
-    args_str = " -n auto" + args_str
     ctx.run(f"uv run pytest{args_str}")
 
 
@@ -56,30 +55,30 @@ def lint_check(ctx):
     ctx.run("uv run mypy src/ibadatfile/")
 
 
-@duty(capture=False)
-def version(
-    ctx,
-    bump_type: Literal[
-        "major", "minor", "patch", "stable", "alpha", "beta", "rc", "post", "dev"
-    ] = "patch",
-):
-    """Release a new version with git operations. (major|minor|patch|stable|alpha|beta|rc|post|dev)."""  # noqa: E501
-    # Check for uncommitted changes
-    result = ctx.run("git status --porcelain", capture=True)
-    if result.strip():
-        msg = "Cannot release with uncommitted changes. Please commit or stash first."
-        raise RuntimeError(msg)
+    @duty(capture=False)
+    def version(
+        ctx,
+        bump_type: Literal[
+            "major", "minor", "patch", "stable", "alpha", "beta", "rc", "post", "dev"
+        ] = "patch",
+    ):
+        """Release a new version with git operations. (major|minor|patch|stable|alpha|beta|rc|post|dev)."""  # noqa: E501
+        # Check for uncommitted changes
+        result = ctx.run("git status --porcelain", capture=True)
+        if result.strip():
+            msg = "Cannot release with uncommitted changes. Please commit or stash first."
+            raise RuntimeError(msg)
 
-    # Read current version
-    old_version = ctx.run("uv version --short", capture=True).strip()
-    print(f"Current version: {old_version}")
-    ctx.run(f"uv version --bump {bump_type}")
-    new_version = ctx.run("uv version --short", capture=True).strip()
-    print(f"New version: {new_version}")
-    ctx.run("git add pyproject.toml")
-    ctx.run(f'git commit -m "chore: bump version {old_version} -> {new_version}"')
+        # Read current version
+        old_version = ctx.run("uv version --short", capture=True).strip()
+        print(f"Current version: {old_version}")
+        ctx.run(f"uv version --bump {bump_type}")
+        new_version = ctx.run("uv version --short", capture=True).strip()
+        print(f"New version: {new_version}")
+        ctx.run("git add pyproject.toml")
+        ctx.run(f'git commit -m "chore: bump version {old_version} -> {new_version}"')
 
-    # Create and push tag
-    tag = f"v{new_version}"
-    ctx.run(f"git tag {tag}")
-    print(f"Created tag: {tag}")
+        # Create and push tag
+        tag = f"v{new_version}"
+        ctx.run(f"git tag {tag}")
+        print(f"Created tag: {tag}")
