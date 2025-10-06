@@ -33,6 +33,12 @@ repos:
         language: system
         types: [python]
         require_serial: true
+      - id: tombi-format
+        name: tombi-format
+        entry: uv run tombi format pyproject.toml
+        language: system
+        files: ^pyproject\.toml$
+        require_serial: true
 
   # Phase 3: Linting and type checking (system commands)
   - repo: local
