@@ -7,6 +7,10 @@ __version__ = version("ibadatfile")
 from .ibadatfile import IbaChannel, IbaDatFile, read_ibadat
 
 __all__ = [
-    "__version__","IbaChannel", "IbaDatFile", "read_ibadat"]
+    "IbaChannel",
+    "IbaDatFile",
+    "__version__",
+    "read_ibadat",
+]
 
 name = "ibadatfile"
