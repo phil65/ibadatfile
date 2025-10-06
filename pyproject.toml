@@ -42,6 +42,7 @@ dev = [
   "pytest",
   "pytest-cov",
   # Only add below (Copier)
+  "pytest-xdist",
 ]
 benchmark = ["pyinstrument"]
 docs = [
