@@ -58,8 +58,8 @@ lint = [
 ]
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["uv_build>=0.8.22"]
+build-backend = "uv_build"
 
 [tool.coverage.report]
 exclude_lines = [
