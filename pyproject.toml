@@ -1,5 +1,6 @@
 [project]
 name = "ibadatfile"
+version = "1.0.0"
 description = "Pythonic wrapper for IBA dat file DLL"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -26,7 +27,6 @@ dependencies = [
   "pandas",
   "pywin32; platform_system == 'Windows'",
 ]
-dynamic = ["version"]
 
 [project.urls]
 "Code coverage" = "https://app.codecov.io/gh/phil65/ibadatfile"
@@ -58,7 +58,7 @@ lint = [
 ]
 
 [build-system]
-requires = ["hatch-regex-commit", "hatchling"]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.coverage.report]
@@ -69,11 +69,6 @@ exclude_lines = [
   "except ImportError",
   'if __name__ == "__main__":',
 ]
-
-[tool.hatch.version]
-source = "regex_commit"
-commit_extra_args = ["-e"]
-path = "src/ibadatfile/__init__.py"
 
 [tool.mknodes]
 allowed-commit-types = [
