@@ -11,7 +11,7 @@ keywords = []
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
-  "Operating System :: OS Independent",
+  "Operating System :: Microsoft :: Windows",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.12",
