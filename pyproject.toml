@@ -228,13 +228,14 @@ runtime-evaluated-base-classes = [
   "pydantic.BaseModel",
   "sqlalchemy.orm.DeclarativeBase",
   "schemez.Schema",
+  "sqlmodel.SQLModel",
 ]
 runtime-evaluated-decorators = [
   "pydantic.validate_call",
-  "attrs.define",
   "fastapi.FastAPI.get",
   "fastapi.FastAPI.post",
   "fastmcp.FastMCP.tool",
+  "typer.Typer.command",
 ]
 
 [tool.ruff.lint.isort]
