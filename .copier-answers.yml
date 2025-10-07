@@ -11,7 +11,7 @@ libraries_use_pydantic: false
 libraries_use_qt: false
 project_description: Pythonic wrapper for IBA dat file DLL
 project_name: IbaDatFile
-python_minimum_version: '3.12'
+python_minimum_version: '3.13'
 python_package_command_line_name: ibadatfile
 python_package_distribution_name: ibadatfile
 python_package_import_name: ibadatfile

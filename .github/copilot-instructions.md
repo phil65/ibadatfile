@@ -1,6 +1,6 @@
 ## Code style
 
-You can assume Python 3.12.
+You can assume Python 3.13.
 Use newest language features if possible
 Consider using pattern matching, walrus operators and other new syntax features.
 Adhere to pep8.
