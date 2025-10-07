@@ -126,7 +126,7 @@ class IbaDatFile:
         """Magic method for context manager."""
         self.reader.Close()
 
-    def __iter__(self) -> Generator[IbaChannel, None, None]:
+    def __iter__(self) -> Generator[IbaChannel]:
         """Iterator interface, returns next channel."""
         enumerator = self.reader.EnumChannels()
         while not enumerator.IsAtEnd():
