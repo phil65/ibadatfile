@@ -5,13 +5,21 @@ from __future__ import annotations
 import logging
 
 
-def get_logger(name: str) -> logging.Logger:
+LogLevel = int | str
+
+
+def get_logger(name: str, log_level: LogLevel | None = None) -> logging.Logger:
     """Get a logger for the given name.
 
     Args:
-        name: The name of the logger, will be prefixed with 'llmling_agent.'
+        name: The name of the logger.
+              Will be prefixed with 'ibadatfile'
+        log_level: The logging level to set for the logger
 
     Returns:
         A logger instance
     """
-    return logging.getLogger(f"ibadatfile.{name}")
+    logger = logging.getLogger(f"ibadatfile.{name}")
+    if log_level is not None:
+        logger.setLevel(log_level)
+    return logger
