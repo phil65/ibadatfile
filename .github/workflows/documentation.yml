@@ -39,7 +39,7 @@ jobs:
         run: |
           uv sync --all-extras
       - name: Build
-        run: uv run mkdocs-mknodes build
+        run: uv run mkdocs-mknodes build --engine zensical
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:

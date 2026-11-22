@@ -34,7 +34,6 @@ theme:
         name: Switch to system preference
   features:
     - announce.dismiss
-    - content.action.edit
     - content.code.copy
     - content.code.select
     - content.code.annotate
