@@ -1,14 +1,11 @@
 from __future__ import annotations
 
-import datetime
+import datetime as dt
 import os
 from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
-import pythoncom
-import pywintypes
-from win32com import client
 
 
 if TYPE_CHECKING:
@@ -19,7 +16,15 @@ if TYPE_CHECKING:
 
 A = 0
 B = 0
-V = client.VARIANT(pythoncom.VT_BYREF | pythoncom.VT_VARIANT, 2)
+
+
+def _variant():
+    """Create the by-reference VARIANT used as output argument for data queries."""
+    # pywin32 is Windows-only; import lazily so the package stays importable elsewhere.
+    import pythoncom
+    from win32com import client
+
+    return client.VARIANT(pythoncom.VT_BYREF | pythoncom.VT_VARIANT, 2)
 
 
 def read_ibadat(
@@ -73,9 +78,9 @@ class IbaChannel:
     def data(self) -> NDArray:
         """Return the channel data."""
         if self.channel.IsDefaultTimebased():
-            data = np.array(self.channel.QueryTimebasedData(A, B, V)[2])
+            data = np.array(self.channel.QueryTimebasedData(A, B, _variant())[2])
         else:
-            data = np.array(self.channel.QueryLengthbasedData(A, B, V)[2])
+            data = np.array(self.channel.QueryLengthbasedData(A, B, _variant())[2])
         if self.is_bool():
             return data.astype(bool)
         if self.pda_type() == "int16":
@@ -108,6 +113,9 @@ class IbaDatFile:
         preload: bool = True,
     ):
         """Initialize the dat file object."""
+        import pywintypes
+        from win32com import client
+
         self.path = os.fspath(path)
         try:
             self.reader = client.dynamic.Dispatch("IbaFilesLite.IbaFile")
@@ -154,7 +162,7 @@ class IbaDatFile:
         start = self.starttime()
         frames = self.frames()
         clk = self.clk()
-        times = [start + datetime.timedelta(seconds=i * clk) for i in range(frames)]
+        times = [start + dt.timedelta(seconds=i * clk) for i in range(frames)]
         return pd.DatetimeIndex(times, name="time")
 
     def frames(self) -> int:
@@ -181,9 +189,9 @@ class IbaDatFile:
         """Return the software version of the recorder."""
         return self.reader.QueryInfoByName("type")
 
-    def starttime(self) -> datetime.datetime:
+    def starttime(self) -> dt.datetime:
         """Return the recording start time as datetime object."""
-        return datetime.datetime.strptime(
+        return dt.datetime.strptime(
             self.reader.QueryInfoByName("starttime"), "%d.%m.%Y %H:%M:%S.%f"
         )
 
