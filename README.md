@@ -20,26 +20,69 @@
 [![Github language count](https://img.shields.io/github/languages/count/phil65/ibadatfile)](https://github.com/phil65/ibadatfile)
 [![Github commits this month](https://img.shields.io/github/commit-activity/m/phil65/ibadatfile)](https://github.com/phil65/ibadatfile)
 [![Package status](https://codecov.io/gh/phil65/ibadatfile/branch/main/graph/badge.svg)](https://codecov.io/gh/phil65/ibadatfile/)
-[![PyUp](https://pyup.io/repos/github/phil65/ibadatfile/shield.svg)](https://pyup.io/repos/github/phil65/ibadatfile/)
 
 [Read the documentation!](https://phil65.github.io/ibadatfile/)
 
-
-# IbaDatFile
-IbaDatFile is a Pythonic wrapper for interacting with iba dat files through the Iba ```ibaFilesLite.dll```. This package simplifies access to the Iba dat file format, making it easier to work with the data in Python.
+Read iba PDA `.dat` measurement files from Python. `ibadatfile` wraps iba's
+`ibaFilesLite.dll` COM server and returns channel data as numpy arrays and
+pandas DataFrames with a proper time index.
 
 ## Requirements
-- Windows-only: This package is designed to work on Windows systems.
-- In Python, the ```IbaFilesLite.dll``` COM object can be either 32-bit or 64-bit. To ensure compatibility, you must verify that the architecture of ```IbaFilesLite.dll``` matches your Python installation. For instance, if you're using a 32-bit ```IbaFilesLite.dll```, you need to run a 32-bit version of Python.
-- Iba ```ibaFilesLite.dll```: You must have the Iba ```ibaFilesLite.dll``` installed and registered on your system.
 
-## Getting Started
-### Register Iba ```ibaFilesLite.dll```
-Make sure the Iba ```ibaFilesLite.dll``` is properly registered on your system. You can do this by running the following command when you are in the directory through Command Prompt:
+- **Windows**: file access goes through COM (via `pywin32`). The package can be
+  imported elsewhere, but opening a file needs Windows.
+- `ibaFilesLite.dll` installed and registered:
 
+  ```bat
+  regsvr32 path\to\ibaFilesLite.dll
+  ```
 
-Copy code
+- The DLL's architecture must match your Python interpreter (32-bit DLL needs 32-bit
+  Python, 64-bit DLL needs 64-bit Python).
+- Python 3.13+.
 
+## Installation
+
+```bash
+pip install ibadatfile
 ```
-regsvr32 path\to\ibaFilesLite.dll
+
+## Quickstart
+
+Read a whole file into a DataFrame (one column per channel, `DatetimeIndex` named `time`):
+
+```python
+from ibadatfile import read_ibadat
+
+df = read_ibadat("measurement.dat")
+print(df.head())
 ```
+
+Work with the file and its channels directly:
+
+```python
+from ibadatfile import IbaDatFile
+
+with IbaDatFile("measurement.dat") as file:
+    print(file.starttime(), file.clk(), file.frames())
+    print(file.return_channel_names())
+
+    for channel in file:
+        print(channel.name(), channel.unit(), channel.is_bool())
+
+    speed = file["speed"].series()  # look up a channel by name
+```
+
+## Features
+
+- `read_ibadat()`: one call from path to DataFrame.
+- `IbaDatFile`: context manager over a `.dat` file; iterate channels, look them up by
+  name, query file info (start time, clock, frame count, signal count, recorder
+  name/type/version) and build the time index.
+- `IbaChannel`: channel metadata (name, unit, scale, offset, PDA type) and data as a numpy
+  array (bool for digital channels) or a named `pandas.Series`.
+- `raw_mode` and `preload` options are passed through to the iba reader.
+
+## License
+
+MIT
