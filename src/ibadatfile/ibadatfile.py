@@ -28,10 +28,20 @@ def _variant():
 
 
 def read_ibadat(
-    path: os.PathLike,
+    path: str | os.PathLike[str],
     raw_mode: bool = False,
     preload: bool = True,
 ) -> pd.DataFrame:
+    """Read an iba .dat file into a DataFrame.
+
+    Args:
+        path: Path to the .dat file.
+        raw_mode: Return raw (unscaled) values.
+        preload: Let the reader preload the file into memory.
+
+    Returns:
+        One column per channel, indexed by a `DatetimeIndex` named "time".
+    """
     with IbaDatFile(path, raw_mode, preload) as file:
         return file.data()
 
@@ -68,11 +78,11 @@ class IbaChannel:
         return self.channel.QueryInfoByName("digchannel")
 
     def pda_type(self) -> str:
-        """Return the channel unit."""
+        """Return the PDA data type of the channel (e.g. "int16")."""
         return self.channel.QueryInfoByName("$PDA_Typ")
 
     def tbased(self):
-        """Return the channel sampling rate for each channel."""
+        """Return the channel time base ($PDA_Tbase) as float."""
         return float(self.channel.QueryInfoByName("$PDA_Tbase"))
 
     def data(self) -> NDArray:
@@ -108,11 +118,22 @@ class IbaDatFile:
 
     def __init__(
         self,
-        path: os.PathLike,
+        path: str | os.PathLike[str],
         raw_mode: bool = False,
         preload: bool = True,
     ):
-        """Initialize the dat file object."""
+        """Initialize the dat file object.
+
+        The file is opened when entering the context manager (or via `open`).
+
+        Args:
+            path: Path to the .dat file.
+            raw_mode: Return raw (unscaled) values.
+            preload: Let the reader preload the file into memory.
+
+        Raises:
+            OSError: If the iba COM server (ibaFilesLite.dll) is not registered.
+        """
         import pywintypes
         from win32com import client
 
@@ -142,13 +163,14 @@ class IbaDatFile:
             yield IbaChannel(channel)
 
     def __getitem__(self, index: str) -> IbaChannel:
+        """Return the channel with the given name, raise IndexError if missing."""
         for channel in self:
             if channel.name() == index:
                 return channel
         raise IndexError(index)
 
-    def open(self, path: os.PathLike):
-        """Open .dat file from *path."""
+    def open(self, path: str | os.PathLike[str]):
+        """Open the .dat file at *path*."""
         self.path = os.fspath(path)
         self.reader.Open(self.path)
         return self
@@ -186,7 +208,7 @@ class IbaDatFile:
         return self.reader.QueryInfoByName("name")
 
     def recorder_type(self) -> str:
-        """Return the software version of the recorder."""
+        """Return the type of the recorder."""
         return self.reader.QueryInfoByName("type")
 
     def starttime(self) -> dt.datetime:
