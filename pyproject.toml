@@ -53,7 +53,7 @@ dev = [
 ]
 benchmark = ["pyinstrument"]
 docs = [
-  "mkdocs-mknodes>=2.0.0",
+  "mkdocs-mknodes>=2.1.0",
   "mkdocstrings[python]",
   # Only add below (Copier)
 ]

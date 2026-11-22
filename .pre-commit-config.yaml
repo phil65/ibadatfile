@@ -1,6 +1,9 @@
 default_language_version:
   python: python3.13
 default_stages: [pre-commit]
+# Hooks run with `uv run --no-sync`: they use the venv exactly as you synced it
+# (e.g. `uv sync --all-extras`). Plain `uv run` would re-sync without extras
+# and break tests that need them.
 repos:
   # Phase 1: Fast basic checks (fail early)
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -23,19 +26,19 @@ repos:
     hooks:
       - id: ruff-format
         name: ruff-format
-        entry: uv run ruff format
+        entry: uv run --no-sync ruff format
         language: system
         types: [python]
         require_serial: true
       - id: ruff-fix
         name: ruff-fix
-        entry: uv run ruff check --fix
+        entry: uv run --no-sync ruff check --fix
         language: system
         types: [python]
         require_serial: true
       - id: tombi-format
         name: tombi-format
-        entry: uv run tombi format pyproject.toml
+        entry: uv run --no-sync tombi format pyproject.toml
         language: system
         files: ^pyproject\.toml$
         require_serial: true
@@ -45,13 +48,13 @@ repos:
     hooks:
       - id: ruff
         name: ruff
-        entry: uv run ruff check
+        entry: uv run --no-sync ruff check
         language: system
         types: [python]
         require_serial: true
       - id: ty
         name: ty
-        entry: uv run ty check
+        entry: uv run --no-sync ty check
         language: system
         types: [python]
         pass_filenames: false
@@ -62,7 +65,7 @@ repos:
     hooks:
       - id: pytest-check
         name: pytest-check
-        entry: uv run pytest
+        entry: uv run --no-sync pytest
         language: system
         types: [python]
         pass_filenames: false

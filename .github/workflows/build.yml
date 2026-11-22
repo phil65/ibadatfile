@@ -52,6 +52,9 @@ jobs:
         run: uv run --no-group docs pytest --cov-report=xml --cov=src/ibadatfile/ --cov-report=term-missing
 
       - name: Upload test results to Codecov
+        # The upload sometimes hangs; never let it fail or block the build.
+        timeout-minutes: 5
+        continue-on-error: true
         uses: codecov/codecov-action@v7
         with:
           fail_ci_if_error: false
