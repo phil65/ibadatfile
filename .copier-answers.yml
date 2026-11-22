@@ -9,7 +9,7 @@ copyright_holder: Philipp Temminghoff
 copyright_holder_email: philipptemminghoff@googlemail.com
 libraries_use_pydantic: false
 libraries_use_qt: false
-project_description: Pythonic wrapper for IBA dat file DLL
+project_description: Read iba PDA .dat measurement files into numpy arrays and pandas DataFrames
 project_name: IbaDatFile
 python_minimum_version: '3.13'
 python_package_command_line_name: ibadatfile

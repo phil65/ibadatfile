@@ -3,7 +3,7 @@
 [project]
 name = "ibadatfile"
 version = "2.0.2"
-description = "Pythonic wrapper for IBA dat file DLL"
+description = "Read iba PDA .dat measurement files into numpy arrays and pandas DataFrames"
 readme = "README.md"
 requires-python = ">=3.13"
 license = "MIT"
@@ -11,16 +11,19 @@ license-files = ["LICENSE"]
 authors = [
   { name = "Philipp Temminghoff", email = "philipptemminghoff@googlemail.com" },
 ]
-keywords = []
+keywords = ["com", "dat", "data acquisition", "iba", "ibaFiles", "ibaPDA", "industrial", "measurement", "pandas"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
+  "Intended Audience :: Manufacturing",
+  "Intended Audience :: Science/Research",
   "Operating System :: Microsoft :: Windows",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
-  "Topic :: Software Development",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Information Analysis",
   "Topic :: Utilities",
   "Typing :: Typed",
 ]
@@ -34,6 +37,7 @@ dependencies = [
 [project.urls]
 "Code coverage" = "https://app.codecov.io/gh/phil65/ibadatfile"
 Documentation = "https://phil65.github.io/ibadatfile/"
+Homepage = "https://phil65.github.io/ibadatfile/"
 Issues = "https://github.com/phil65/ibadatfile/issues"
 Source = "https://github.com/phil65/ibadatfile"
 

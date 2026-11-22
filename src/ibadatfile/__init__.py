@@ -1,6 +1,6 @@
 """IbaDatFile: main package.
 
-Pythonic wrapper for IBA dat file DLL.
+Read iba PDA .dat measurement files into numpy arrays and pandas DataFrames.
 """
 
 from __future__ import annotations
