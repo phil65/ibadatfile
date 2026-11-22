@@ -34,15 +34,14 @@ jobs:
           python-version: ${{ matrix.python_version }}
 
       - name: Install dependencies (uv sync)
-        run: uv sync --all-extras --no-group docs --no-group lint
+        run: uv sync --all-extras --no-group docs
 
+      # ruff / ty come from the pinned `lint` group, same versions as pre-commit.
       - name: Check for code issues (ruff check)
-        uses: astral-sh/ruff-action@v4.1.0
+        run: uv run --no-group docs ruff check .
 
       - name: Check code format (ruff format)
-        uses: astral-sh/ruff-action@v4.1.0
-        with:
-          args: "format --check"
+        run: uv run --no-group docs ruff format --check .
 
       - name: Static type checking (ty)
         run: uv run --no-group docs ty check
