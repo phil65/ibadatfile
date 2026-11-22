@@ -39,7 +39,7 @@ jobs:
         run: |
           uv sync --all-extras
       - name: Build
-        run: uv run mknodes build
+        run: uv run mkdocs-mknodes build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
@@ -54,4 +54,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

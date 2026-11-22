@@ -9,10 +9,11 @@ env:
 jobs:
   test:
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
     continue-on-error: ${{ matrix.python_version == '3.14' }}
     strategy:
       matrix:
-        python_version: ["3.12", "3.13", "3.14"]
+        python_version: ["3.13", "3.14"]
         os: ["windows-latest"]
     steps:
       - name: Check out repository
@@ -30,20 +31,21 @@ jobs:
           enable-cache: true
           cache-dependency-glob: pyproject.toml
           cache-suffix: py${{ matrix.python_version }}
+          python-version: ${{ matrix.python_version }}
 
       - name: Install dependencies (uv sync)
         run: uv sync --all-extras --no-group docs --no-group lint
 
       - name: Check for code issues (ruff check)
-        uses: astral-sh/ruff-action@v3
+        uses: astral-sh/ruff-action@v4.1.0
 
       - name: Check code format (ruff format)
-        uses: astral-sh/ruff-action@v3
+        uses: astral-sh/ruff-action@v4.1.0
         with:
           args: "format --check"
 
-      - name: Static type checking (MyPy)
-        run: uv run --no-group docs mypy src/ibadatfile/
+      - name: Static type checking (ty)
+        run: uv run --no-group docs ty check
 
       - name: Run tests
         run: uv run --no-group docs pytest --cov-report=xml --cov=src/ibadatfile/ --cov-report=term-missing
@@ -56,6 +58,7 @@ jobs:
 
   release:
     runs-on: windows-latest
+    timeout-minutes: 30
     needs: test
     if: startsWith(github.ref, 'refs/tags/')
     permissions:

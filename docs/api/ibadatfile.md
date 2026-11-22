@@ -1,4 +1,0 @@
-ibadatfile module
-================
-
-::: ibadatfile.ibadatfile

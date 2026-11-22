@@ -9,7 +9,6 @@
 [![Implementation](https://img.shields.io/pypi/implementation/ibadatfile.svg)](https://pypi.org/project/ibadatfile/)
 [![Releases](https://img.shields.io/github/downloads/phil65/ibadatfile/total.svg)](https://github.com/phil65/ibadatfile/releases)
 [![Github Contributors](https://img.shields.io/github/contributors/phil65/ibadatfile)](https://github.com/phil65/ibadatfile/graphs/contributors)
-[![Github Discussions](https://img.shields.io/github/discussions/phil65/ibadatfile)](https://github.com/phil65/ibadatfile/discussions)
 [![Github Forks](https://img.shields.io/github/forks/phil65/ibadatfile)](https://github.com/phil65/ibadatfile/forks)
 [![Github Issues](https://img.shields.io/github/issues/phil65/ibadatfile)](https://github.com/phil65/ibadatfile/issues)
 [![Github Issues](https://img.shields.io/github/issues-pr/phil65/ibadatfile)](https://github.com/phil65/ibadatfile/pulls)
