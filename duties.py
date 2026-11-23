@@ -58,6 +58,13 @@ def lint_check(ctx):
 
 
 @duty(capture=False)
+def changelog(ctx, *args: str):
+    """Write the whole release history to CHANGELOG.md (git-cliff, see cliff.toml)."""
+    args_str = " " + " ".join(args) if args else ""
+    ctx.run(f"uvx git-cliff --output CHANGELOG.md{args_str}")
+
+
+@duty(capture=False)
 def version(
     ctx,
     *bump_type: Literal["major", "minor", "patch", "stable", "alpha", "beta", "rc"],

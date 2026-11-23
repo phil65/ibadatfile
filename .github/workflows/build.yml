@@ -72,6 +72,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0  # the whole history, so the notes cover everything since the last tag
 
       - name: Set up Python
         uses: actions/setup-python@v7
@@ -88,12 +90,16 @@ jobs:
       - name: Build package
         run: uv build
 
+      - name: Generate release notes
+        # From the Conventional Commits since the previous tag (cliff.toml)
+        run: uvx git-cliff --latest --strip header --output release-notes.md
+
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
 
       - name: Release package on GitHub
         uses: ncipollo/release-action@v1
         with:
-          body: ${{ github.event.head_commit.message }}
+          bodyFile: release-notes.md
           artifacts: dist/*.whl,dist/*.tar.gz
           token: ${{ secrets.GITHUB_TOKEN }}
