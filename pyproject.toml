@@ -53,8 +53,8 @@ dev = [
 ]
 benchmark = ["pyinstrument"]
 docs = [
-  "mkdocs-mknodes>=2.1.0",
   "mkdocstrings[python]",
+  "mknodes>=4.0.0",
   # Only add below (Copier)
 ]
 lint = [

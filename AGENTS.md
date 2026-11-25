@@ -46,7 +46,7 @@ uv run pytest                        # tests
 uv run ruff check . && uv run ruff format --check .
 uv run ty check                      # type check (src only, warnings fail CI)
 uv run deptry src                    # dependency declarations
-uv run mkdocs-mknodes build          # docs -> ./site
+uv run mknodes build          # docs -> ./site
 uv build
 uvx duty lint | lint_check | test | build | serve | version   # duty is not a project dependency
 ```
@@ -60,7 +60,7 @@ by the `release` job; don't create tags.
 - Python >= 3.13, `from __future__ import annotations`, Google-style docstrings
   (no types in `Args`), ruff with preview rules, line length 100, `datetime` imported as `dt`.
 - Tests are plain pytest functions (no classes).
-- Docs site is the mkdocs-mknodes default: README is the index page, API/dev pages are
+- Docs site is the mknodes default: README is the index page, API/dev pages are
   auto-generated. `docs/` is intentionally empty; there are no hand-written pages.
 
 ## Pitfalls

@@ -39,7 +39,7 @@ jobs:
         run: |
           uv sync --all-extras
       - name: Build
-        run: uv run mkdocs-mknodes build
+        run: uv run mknodes build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
