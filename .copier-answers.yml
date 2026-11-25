@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier
-_commit: v2.12.1
+_commit: v2.13.0
 _src_path: https://github.com/phil65/copier-phil65.git
 author_email: philipptemminghoff@googlemail.com
 author_fullname: Philipp Temminghoff
@@ -12,7 +12,7 @@ libraries_use_qt: false
 project_description: Read iba PDA .dat measurement files into numpy arrays and pandas
     DataFrames
 project_name: IbaDatFile
-python_minimum_version: '3.13'
+python_minimum_version: '3.14'
 python_package_command_line_name: ibadatfile
 python_package_distribution_name: ibadatfile
 python_package_import_name: ibadatfile

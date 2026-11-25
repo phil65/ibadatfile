@@ -1,5 +1,5 @@
 default_language_version:
-  python: python3.13
+  python: python3.14
 default_stages: [pre-commit]
 # Hooks run with `uv run --no-sync`: they use the venv exactly as you synced it
 # (e.g. `uv sync --all-extras`). Plain `uv run` would re-sync without extras

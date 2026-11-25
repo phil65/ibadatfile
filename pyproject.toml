@@ -5,7 +5,7 @@ name = "ibadatfile"
 version = "2.0.2"
 description = "Read iba PDA .dat measurement files into numpy arrays and pandas DataFrames"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [
@@ -20,7 +20,6 @@ classifiers = [
   "Operating System :: Microsoft :: Windows",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
   "Topic :: Scientific/Engineering",
   "Topic :: Scientific/Engineering :: Information Analysis",
@@ -96,7 +95,7 @@ docstring-style = "google"
 [tool.pyright]
 venvPath = "."
 venv = ".venv"
-pythonVersion = "3.13"
+pythonVersion = "3.14"
 pythonPlatform = "All"
 typeCheckingMode = "basic"
 deprecateTypingAliases = true
@@ -123,7 +122,7 @@ asyncio_mode = "auto"
 [tool.ruff]
 line-length = 100
 extend-exclude = ["docs"]
-target-version = "py313"
+target-version = "py314"
 
 [tool.ruff.lint]
 future-annotations = true
@@ -265,7 +264,7 @@ max-complexity = 15
 preview = true
 
 [tool.ty.environment]
-python-version = "3.13"
+python-version = "3.14"
 python-platform = "all"
 
 [tool.ty.src]
