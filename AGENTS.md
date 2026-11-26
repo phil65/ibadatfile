@@ -57,7 +57,7 @@ by the `release` job; don't create tags.
 
 ## Conventions
 
-- Python >= 3.13, `from __future__ import annotations`, Google-style docstrings
+- Python >= 3.14, no `from __future__ import annotations` (PEP 649; banned via ruff TID251), Google-style docstrings
   (no types in `Args`), ruff with preview rules, line length 100, `datetime` imported as `dt`.
 - Tests are plain pytest functions (no classes).
 - Docs site is the mknodes default: README is the index page, API/dev pages are
