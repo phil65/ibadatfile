@@ -1,7 +1,5 @@
 """Project tasks."""
 
-from __future__ import annotations
-
 from typing import Literal
 
 from duty import duty  # pyright: ignore[reportMissingImports]
